@@ -180,13 +180,40 @@ export function CoinDetail() {
             <div className="flex items-center gap-3">
               <div className="p-2 bg-card rounded-lg border border-white/5"><BarChart3 size={18} className="text-secondary" /></div>
               <div>
+                <p className="text-sm font-medium text-foreground">Market Strength</p>
+                <p className="text-xs text-muted-foreground">Cap-weighted score</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-16 h-2 bg-card rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-secondary rounded-full" 
+                  style={{ 
+                    width: coin.market_cap > 100000000000 ? '90%' : 
+                           coin.market_cap > 10000000000 ? '75%' : 
+                           coin.market_cap > 1000000000 ? '50%' : '30%' 
+                  }} 
+                />
+              </div>
+              <span className="font-bold text-foreground text-sm">
+                {coin.market_cap > 100000000000 ? "High 90%" : 
+                 coin.market_cap > 10000000000 ? "High 75%" : 
+                 coin.market_cap > 1000000000 ? "Med 50%" : "Low 30%"}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-card rounded-lg border border-white/5"><BarChart3 size={18} className="text-primary" /></div>
+              <div>
                 <p className="text-sm font-medium text-foreground">Momentum</p>
                 <p className="text-xs text-muted-foreground">Score 1-100</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-16 h-2 bg-card rounded-full overflow-hidden">
-                <div className="h-full bg-secondary rounded-full" style={{ width: `${momentumScore}%` }} />
+                <div className="h-full bg-primary rounded-full" style={{ width: `${momentumScore}%` }} />
               </div>
               <span className="font-bold text-foreground text-sm">{Math.round(momentumScore)}</span>
             </div>

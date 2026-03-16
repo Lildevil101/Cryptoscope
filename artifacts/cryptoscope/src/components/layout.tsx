@@ -52,18 +52,20 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function TopBar({ title, rightAction }: { title: React.ReactNode, rightAction?: React.ReactNode }) {
+export function TopBar({ title, rightAction, leftAction }: { title: React.ReactNode, rightAction?: React.ReactNode, leftAction?: React.ReactNode }) {
   return (
     <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex items-center justify-between">
-      <div className="flex items-center gap-3">
-        <img src={`${import.meta.env.BASE_URL}images/logo.png`} alt="Logo" className="w-8 h-8 rounded-lg shadow-[0_0_10px_rgba(0,255,136,0.3)]" />
-        <h1 className="text-xl font-display font-bold text-foreground tracking-wide">
+      <div className="flex items-center justify-start flex-1">
+        {leftAction}
+      </div>
+      <div className="flex items-center justify-center flex-[2]">
+        <h1 className="text-xl font-display font-bold text-foreground tracking-wide text-center">
           {title}
         </h1>
       </div>
-      {rightAction && (
-        <div>{rightAction}</div>
-      )}
+      <div className="flex items-center justify-end flex-1">
+        {rightAction}
+      </div>
     </header>
   );
 }

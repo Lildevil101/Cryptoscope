@@ -1,0 +1,155 @@
+Create a modern mobile-first cryptocurrency tracking app called "CryptoScope".
+
+General requirements:
+- The app should look like a professional fintech startup product.
+- Mobile-first layout optimized for phones.
+- Dark theme UI.
+- Smooth scrolling and clean spacing.
+
+Color palette:
+Background: #0B0B0F
+Card background: #141419
+Primary accent: #00FF88 (neon green)
+Secondary accent: #00E5FF (cyan)
+Positive percentage color: #00FF88
+Negative percentage color: #FF4D4D
+Primary text: #FFFFFF
+Secondary text: #9CA3AF
+
+Technology:
+- Use HTML, CSS, and JavaScript.
+- Fetch cryptocurrency data from the CoinGecko API.
+- Use this endpoint to get market data:
+
+https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false
+
+App structure:
+
+1. Splash Screen
+Show a centered CryptoScope logo and text:
+"CryptoScope"
+Tagline: "See the Market Clearly"
+Fade into the main screen after a short delay.
+
+2. Market Screen (Main Dashboard)
+
+Top header:
+- Hamburger menu icon on the left
+- App title "CryptoScope" centered
+- Notification bell icon on the right
+
+Below the header:
+Search bar with placeholder text:
+"Search coins..."
+
+Sections on the page:
+
+Trending
+Top Gainers
+Top Losers
+
+Main coin list should display the top 20 cryptocurrencies from the API.
+
+Each coin should appear inside a rounded card container with:
+- coin logo on the left
+- coin name and symbol
+- current price
+- 24-hour percentage change
+
+If the percentage is positive, display it in neon green (#00FF88).
+If negative, display it in red (#FF4D4D).
+
+Cards should use color #141419 with rounded corners.
+
+3. Coin Detail Screen
+
+When a user taps a coin card, open a detail page.
+
+Display:
+- coin logo
+- coin name and symbol
+- current price
+- 24 hour change
+- market cap
+- trading volume
+
+Add a simple price chart using the last 7 days of data.
+
+Include a section called "Crypto X-Ray" that summarizes the coin:
+
+Crypto X-Ray Panel:
+Market Strength (percentage score)
+Trend: Bullish / Bearish
+Momentum: Strong / Weak
+Risk Level: Low / Medium / High
+
+This panel should visually look like an analysis widget.
+
+4. Watchlist Feature
+
+Allow users to add coins to a watchlist using a star icon.
+
+Watchlist screen should display saved coins.
+
+Use local storage so the watchlist persists.
+
+5. Portfolio Tracker
+
+Allow users to add holdings.
+
+For each coin allow the user to input:
+- amount owned
+- purchase price
+
+Calculate:
+Current value
+Profit or loss
+
+Display the portfolio total value at the top.
+
+6. Price Alerts
+
+Allow users to set price alerts for coins.
+
+Example:
+Alert when BTC reaches $70,000.
+
+Alerts should be stored locally and checked when the page refreshes.
+
+7. Crypto Radar Feature
+
+Add a section called "Crypto Radar".
+
+This section highlights coins with the strongest momentum using:
+- highest 24h percentage increase
+- highest trading volume increase.
+
+8. Bottom Navigation Bar
+
+Include a fixed mobile navigation bar with 5 tabs:
+
+Market
+Watchlist
+Portfolio
+Alerts
+Settings
+
+Icons should be minimal and modern.
+
+9. UI Design Style
+
+Use clean fintech design.
+Spacing should feel modern and professional.
+
+Cards should have soft shadows and rounded corners.
+
+Animations should be subtle (hover or tap effects).
+
+10. Performance
+
+The app should fetch crypto prices when the page loads and refresh every 60 seconds.
+
+The layout should remain responsive on mobile screens.
+
+Goal:
+Create a polished mobile-style crypto tracker that feels similar to professional apps like CoinMarketCap or CoinGecko, but branded as CryptoScope.

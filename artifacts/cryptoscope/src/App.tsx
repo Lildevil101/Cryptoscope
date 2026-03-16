@@ -2,6 +2,8 @@ import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { Layout } from "@/components/layout";
 import { Market } from "@/pages/market";
@@ -11,6 +13,7 @@ import { Portfolio } from "@/pages/portfolio";
 import { Alerts } from "@/pages/alerts";
 import { Settings } from "@/pages/settings";
 import NotFound from "@/pages/not-found";
+import { SplashScreen } from "@/components/splash-screen";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -38,13 +41,41 @@ function Router() {
 }
 
 function App() {
+  const [showSplash, setShowSplash] = useState(() => {
+    return !sessionStorage.getItem("cryptoscope_splashed");
+  });
+
+  useEffect(() => {
+    if (showSplash) {
+      const timer = setTimeout(() => {
+        setShowSplash(false);
+        sessionStorage.setItem("cryptoscope_splashed", "true");
+      }, 2200);
+      return () => clearTimeout(timer);
+    }
+  }, [showSplash]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <Router />
-        </WouterRouter>
-        <Toaster />
+        <AnimatePresence mode="wait">
+          {showSplash ? (
+            <SplashScreen key="splash" />
+          ) : (
+            <motion.div
+              key="app"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="min-h-screen w-full"
+            >
+              <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+                <Router />
+              </WouterRouter>
+              <Toaster />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </TooltipProvider>
     </QueryClientProvider>
   );
