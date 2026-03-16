@@ -72,8 +72,8 @@ export function Settings() {
                   
                   {item.type === "toggle" && (
                     <Switch 
-                      checked={item.checked} 
-                      onCheckedChange={item.onChange}
+                      checked={item.checked ?? false} 
+                      onCheckedChange={item.onChange ?? (() => {})}
                       className="data-[state=checked]:bg-primary"
                     />
                   )}
