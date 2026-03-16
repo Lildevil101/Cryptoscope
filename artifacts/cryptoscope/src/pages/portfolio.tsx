@@ -3,7 +3,7 @@ import { TopBar } from "@/components/layout";
 import { useMarketData } from "@/hooks/use-coingecko";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { formatPrice, cn } from "@/lib/utils";
-import { Plus, Wallet, Trash2, TrendingUp, TrendingDown, ChevronRight } from "lucide-react";
+import { Plus, Wallet, Trash2, TrendingUp, TrendingDown, ChevronRight, PieChart } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 interface Holding {
