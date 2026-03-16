@@ -1,0 +1,13 @@
+packages:
+  "recharts": "For the cryptocurrency price history area charts"
+  "framer-motion": "For smooth page transitions and micro-interactions"
+  "date-fns": "For formatting dates on the chart axes"
+
+images:
+  - path: "artifacts/cryptoscope/public/images/logo.png"
+    description: "Minimalist glowing neon green abstract geometric hexagon logo for a crypto app on a dark background"
+    aspect_ratio: "1:1"
+
+notes:
+  - App relies on CoinGecko public API which has rate limits (10-50 calls/min). Error states are handled gracefully.
+  - LocalStorage is used for Watchlist, Portfolio, and Alerts to persist data without a backend.

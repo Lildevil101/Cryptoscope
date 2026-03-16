@@ -1,0 +1,130 @@
+Build a complete mobile-first cryptocurrency tracking web app called "CryptoScope".
+
+Technology:
+Use HTML, CSS, and JavaScript.
+The app should run in the browser and be easily convertible into a mobile app later.
+
+Design Requirements:
+Create a modern fintech UI with a dark theme.
+
+Colors:
+Background: #0B0B0F
+Card background: #141419
+Primary accent: #00FF88 (neon green)
+Secondary accent: #00E5FF (cyan)
+Positive price change: #00FF88
+Negative price change: #FF4D4D
+Primary text: #FFFFFF
+Secondary text: #9CA3AF
+
+Layout:
+Mobile-first responsive design.
+
+Top header:
+- App title: CryptoScope
+- Left: menu icon
+- Right: notification icon
+
+Below the header:
+Search bar with placeholder "Search coins..."
+
+Main screen sections:
+
+1. Market Screen
+Display top cryptocurrencies with live prices.
+
+Fetch data from the CoinGecko API:
+https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false
+
+Display each coin inside a rounded card with:
+- coin logo
+- coin name
+- coin symbol
+- current price
+- 24h price change percentage
+
+Price change should appear green if positive and red if negative.
+
+Cards should have rounded corners and subtle shadows.
+
+Make the coin list scrollable.
+
+When a user taps a coin, open a Coin Detail screen.
+
+2. Coin Detail Screen
+Display detailed information about the selected coin.
+
+Show:
+- coin logo
+- coin name and symbol
+- current price
+- market cap
+- trading volume
+- 24h change
+
+Add a simple price chart showing the last 7 days.
+
+Add a section called "Crypto X-Ray" that shows:
+
+Trend: Bullish or Bearish
+Momentum Score
+Market Strength
+Risk Level
+
+3. Watchlist Screen
+Allow users to add coins to a watchlist using a star icon.
+
+Save the watchlist using local storage so it persists.
+
+Display saved coins in the watchlist screen.
+
+4. Portfolio Screen
+Allow users to track their holdings.
+
+User can add:
+- coin name
+- amount owned
+- purchase price
+
+Calculate:
+current value
+profit or loss
+
+Display total portfolio value at the top.
+
+5. Alerts Screen
+Allow users to set price alerts.
+
+Example:
+Alert when Bitcoin reaches a certain price.
+
+Store alerts locally and check them when the page loads.
+
+6. Settings Screen
+Create a settings page with:
+
+Currency selection
+Notification toggle
+Theme toggle
+About CryptoScope section
+
+Navigation:
+Add a fixed bottom navigation bar with 5 tabs:
+
+Market
+Watchlist
+Portfolio
+Alerts
+Settings
+
+Icons should be minimal and modern.
+
+Animations:
+Use subtle hover or tap animations.
+
+Performance:
+Load cryptocurrency data when the app starts.
+Refresh prices every 60 seconds.
+
+Goal:
+Create a professional cryptocurrency tracker similar to modern crypto apps but branded as CryptoScope.

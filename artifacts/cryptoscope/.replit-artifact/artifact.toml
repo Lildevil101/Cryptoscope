@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "CryptoScope"
+version = "1.0.0"
+id = "artifacts/cryptoscope"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+localPort = 22119
+name = "web"
+paths = ["/"]
+
+[services.development]
+run = "pnpm --filter @workspace/cryptoscope run dev"
+
+[services.env]
+PORT = "22119"
+BASE_PATH = "/"
+
+[services.production]
+build = ["pnpm", "--filter", "@workspace/cryptoscope", "run", "build"]
+publicDir = "artifacts/cryptoscope/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
