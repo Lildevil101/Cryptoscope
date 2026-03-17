@@ -1,0 +1,4 @@
+{
+  "buildCommand": "cd artifacts/cryptoscope && pnpm run build",
+  "outputDirectory": "artifacts/cryptoscope/dist/public"
+}
