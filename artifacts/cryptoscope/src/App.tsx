@@ -46,13 +46,12 @@ function App() {
   });
 
   useEffect(() => {
-    if (showSplash) {
+    if (!showSplash) return; 
       const timer = setTimeout(() => {
         setShowSplash(false);
         sessionStorage.setItem("cryptoscope_splashed", "true");
       }, 2200);
       return () => clearTimeout(timer);
-    }
   }, [showSplash]);
 
   return (
