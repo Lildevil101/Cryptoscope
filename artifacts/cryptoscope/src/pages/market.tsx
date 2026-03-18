@@ -2,30 +2,40 @@ import { useState, useMemo } from "react";
 import { Search, AlertCircle, Menu, Bell, Radio, TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight, Activity } from "lucide-react";
 import { TopBar } from "@/components/layout";
 import { CoinCard } from "@/components/coin-card";
-import { useMarketData } from "@/hooks/use-coingecko";
 import { formatPrice, formatCompactNumber, cn } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
 
 const TABS = ["All", "Trending", "Top Gainers", "Top Losers"];
+const fetchCoins = async () => {
+  const res = await fetch(
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd"
+  );
+  return res.json();
+};
 
 export function Market() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeTab, setActiveTab] = useState("All");
-  const { data: coins, isLoading, isError, error } = useMarketData();
+  const { data, isLoading, error } = useQuery({
+  queryKey: ["coins"],
+  queryFn: fetchCoins,
+  refetchInterval: 30000,
+});
+  const [activeTab, setActiveTab] = useState("All")
 
   const { biggestWinner, biggestLoser, highestVolume } = useMemo(() => {
-    if (!coins || coins.length === 0) return { biggestWinner: null, biggestLoser: null, highestVolume: null };
-    const sortedByGain = [...coins].sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h);
-    const sortedByVolume = [...coins].sort((a, b) => b.total_volume - a.total_volume);
+    if (!data || data.length === 0) return { biggestWinner: null, biggestLoser: null, highestVolume: null };
+    const sortedByGain = [...data].sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h);
+    const sortedByVolume = [...data].sort((a, b) => b.total_volume - a.total_volume);
     
     return {
       biggestWinner: sortedByGain[0],
       biggestLoser: sortedByGain[sortedByGain.length - 1],
       highestVolume: sortedByVolume[0]
     };
-  }, [coins]);
+  }, [data]);
 
   const filteredCoins = useMemo(() => {
-    let displayCoins = [...(coins || [])];
+    let displayCoins = [...(data || [])];
     
     if (activeTab === "Trending") {
       displayCoins = displayCoins.sort((a, b) => a.market_cap_rank - b.market_cap_rank).slice(0, 10);
@@ -39,7 +49,7 @@ export function Market() {
       coin.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
       coin.symbol.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [coins, activeTab, searchQuery]);
+  }, [data, activeTab, searchQuery]);
 
   return (
     <>
@@ -70,7 +80,7 @@ export function Market() {
         </div>
 
         {/* Crypto Radar */}
-        {!isLoading && !isError && coins && coins.length > 0 && (
+        {!isLoading && !error && data && data.length > 0 && (
           <div className="mb-6 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">
             <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-1.5 uppercase tracking-wider">
               <Radio size={16} className="text-secondary" />
@@ -171,7 +181,7 @@ export function Market() {
               <div key={i} className="h-20 w-full bg-card/40 animate-pulse rounded-2xl border border-white/5" />
             ))}
           </div>
-        ) : isError ? (
+        ) : error ? (
           <div className="flex flex-col items-center justify-center py-20 text-center px-4 glass-panel rounded-3xl mt-10">
             <AlertCircle className="w-12 h-12 text-destructive mb-4" />
             <h3 className="text-lg font-bold text-foreground">Data Fetch Failed</h3>
