@@ -2,11 +2,33 @@ import { TopBar } from "@/components/layout";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { Switch } from "@/components/ui/switch";
 import { Moon, Bell, DollarSign, Shield, Info, ChevronRight, Github } from "lucide-react";
+type SettingItem =
+  | {
+      icon: any;
+      label: string;
+      type: "value";
+      value: string;
+    }
+  | {
+      icon: any;
+      label: string;
+      type: "toggle";
+      checked: boolean;
+      onChange: (value: boolean) => void;
+    }
+  | {icon: any;
+     label: string;
+     type: "link";
+    };
 
+type SettingGroup = {
+  title: string;
+  items: SettingItem[];
+};
 export function Settings() {
   const [notifications, setNotifications] = useLocalStorage("cryptoscope_notifs", true);
 
-  const settingGroups = [
+  const settingGroups: SettingGroup[] = [
     {
       title: "Preferences",
       items: [
@@ -17,7 +39,7 @@ export function Settings() {
           label: "Push Notifications", 
           type: "toggle", 
           checked: notifications, 
-          onChange: setNotifications 
+          onChange: (value) => setNotifications(value) 
         },
       ]
     },
@@ -72,8 +94,8 @@ export function Settings() {
                   
                   {item.type === "toggle" && (
                     <Switch 
-                      checked={item.checked ?? false} 
-                      onCheckedChange={item.onChange ?? (() => {})}
+                      checked={item.checked} 
+                      onCheckedChange={(value) => item.onChange(value)}
                       className="data-[state=checked]:bg-primary"
                     />
                   )}
