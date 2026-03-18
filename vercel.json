@@ -1,6 +1,9 @@
 {
   "routes": [
     { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/artifasts/cryptoscope/dist/public/index.html" }
+    {
+      "src": "/(.*)", 
+      "dest": "/artifasts/cryptoscope/dist/public/index.html"
+    }
   ]
 }
