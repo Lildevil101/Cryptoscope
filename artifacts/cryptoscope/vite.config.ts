@@ -11,36 +11,49 @@ export default defineConfig({
  plugins: [
   react(),
   tailwindcss(),
-  VitePWA({
-    registerType: "autoUpdate",
-    manifest: {
-      name: "CryptoScope",
-      short_name: "CryptoScope",
-      description: "See the market clearly",
-      theme_color: "#020617",
-      background_color: "#020617",
-      display: "standalone",
-      icons: [
-        {
-          src: "/images/logo.png",
-          sizes: "192x192",
-          type: "image/png",
-        },
-        {
-          src: "/images/logo.png",
-          sizes: "512x512",
-          type: "image/png",
-        },
-        {
-          src: "/icon-512.png",
-          sizes: "512x512",
-          type: "image/png",
-          purpose:"maskable"
-        }
-      ]
-    }
-  })
-],
+VitePWA({
+  registerType: "autoUpdate",
+  includeAssets: ["icon-192.png", "icon-512.png"],
+  manifest: {
+    name: "CryptoScope",
+    short_name: "CryptoScope",
+    description: "See the market clearly",
+    theme_color: "#020617",
+    background_color: "#020617",
+    display: "standalone",
+    start_url: "/",   
+    scope: "/",       
+    icons: [
+      {
+        src: "/icon-192.png",
+        sizes: "192x192",
+        type: "image/png"
+      },
+      {
+        src: "/icon-512.png",
+        sizes: "512x512",
+        type: "image/png"
+      },
+      {
+        src: "/icon-512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "maskable"
+      }
+    ]
+  },
+  workbox: {
+  runtimeCaching: [
+    {
+      urlPattern: ({ request }) => request.destination === "document",
+      handler: "NetworkFirst",
+      options: {
+        cacheName: "pages",
+      },
+    },
+  ],
+}
+})
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),
