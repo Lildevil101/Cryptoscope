@@ -2,17 +2,18 @@ import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { useState, useEffect, lazy, suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { Layout } from "@/components/layout";
+import { SplashScreen } from "@/components/splash-screen";
+
 const Market = lazy(() => import("@/pages/market"));
 const CoinDetail = lazy(() => import("@/pages/coin-detail"));
 const Watchlist = lazy(() => import("@/pages/watchlist"));
 const Portfolio = lazy(() => import("@/pages/portfolio"));
 const Alerts = lazy(() => import("@/pages/alerts"));
-import { SplashScreen } from "@/components/splash-screen";
-const Settings = lazy(() => import("@/pages/settings));
+const Settings = lazy(() => import("@/pages/settings"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,30 +28,36 @@ function Router() {
   return (
     <Layout>
       <Switch>
+        {/* ✅ ROOT ROUTE */}
         <Route
           path="/"
           component={() => (
-            <Suspense fallback={<SplashScreen/>}>
+            <Suspense fallback={<SplashScreen />}>
               <Market />
             </Suspense>
           )}
         />
+
+        {/* ✅ FIXED */}
         <Route
           path="/coin/:id"
           component={() => (
             <Suspense fallback={<SplashScreen />}>
-              <coin/:id/>
+              <CoinDetail />
             </Suspense>
-           )}
+          )}
         />
+
+        {/* ✅ FIXED */}
         <Route
           path="/watchlist"
           component={() => (
             <Suspense fallback={<SplashScreen />}>
-              <watchlist/>
+              <Watchlist />
             </Suspense>
           )}
         />
+
         <Route
           path="/portfolio"
           component={() => (
@@ -59,23 +66,28 @@ function Router() {
             </Suspense>
           )}
         />
+
+        {/* ✅ FIXED */}
         <Route
           path="/alerts"
           component={() => (
             <Suspense fallback={<SplashScreen />}>
-              <alerts/>
+              <Alerts />
             </Suspense>
           )}
-v       />
+        />
+
         <Route
-          path="/settings" 
-          component={() => ( 
-            <Suspense fallback={<SplashScreen/>}>
+          path="/settings"
+          component={() => (
+            <Suspense fallback={<SplashScreen />}>
               <Settings />
             </Suspense>
-            )}
-            />
-        <Route component={NotFound} />
+          )}
+        />
+
+        {/* ✅ fallback */}
+        <Route component={() => <Market />} />
       </Switch>
     </Layout>
   );
@@ -118,7 +130,7 @@ useEffect(() => {
               transition={{ duration: 0.5 }}
               className="min-h-screen w-full"
             >
-              <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+              <WouterRouter>
                 <Router />
               </WouterRouter>
               <Toaster />
