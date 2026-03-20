@@ -1,3 +1,4 @@
+console.log("NEW CONFIG LOADED")
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
