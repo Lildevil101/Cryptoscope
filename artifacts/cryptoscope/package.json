@@ -6,7 +6,7 @@
 
   "scripts": {
     "dev": "vite",
-    "build": "npm is @radix-ui/react-tooltip && vite build",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
