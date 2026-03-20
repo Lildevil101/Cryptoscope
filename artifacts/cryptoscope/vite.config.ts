@@ -11,54 +11,54 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-  VitePWA({
-  registerType: "autoUpdate",
-  strategies: "generateSW",
-  includeAssets: ["icon-192.png", "icon-512.png"],
+    VitePWA({
+      registerType: "autoUpdate",
+      strategies: "generateSW",
+      includeAssets: ["icon-192.png", "icon-512.png"],
 
-  manifest: {
-    name: "CryptoScope",
-    short_name: "CryptoScope",
-    description: "See the market clearly",
-    theme_color: "#020617",
-    background_color: "#020617",
-    display: "standalone",
-    start_url: "/",
-    scope: "/",
-    icons: [
-      {
-        src: "/icon-192.png",
-        sizes: "192x192",
-        type: "image/png",
+      manifest: {
+        name: "CryptoScope",
+        short_name: "CryptoScope",
+        description: "See the market clearly",
+        theme_color: "#020617",
+        background_color: "#020617",
+        display: "standalone",
+        start_url: "/",
+        scope: "/",
+        icons: [
+          {
+             src: "/icon-192.png",
+             sizes: "192x192",
+             type: "image/png",
+          },
+          {
+             src: "/icon-512.png",
+             sizes: "512x512",
+             type: "image/png",
+          },
+          {
+             src: "/icon-512.png",
+             sizes: "512x512",
+             type: "image/png",
+             purpose: "maskable",
+          },
+        ],
       },
-      {
-        src: "/icon-512.png",
-        sizes: "512x512",
-        type: "image/png",
-      },
-      {
-        src: "/icon-512.png",
-        sizes: "512x512",
-        type: "image/png",
-        purpose: "maskable",
-      },
-    ],
-  },
 
-  workbox: {
-    navigateFallback: "/index.html",
-    runtimeCaching: [
-      {
-        urlPattern: ({ request }) => request.destination === "document",
-        handler: "NetworkFirst",
-        options: {
-          cacheName: "pages",
-        },
+      workbox: {
+        navigateFallback: "/index.html",
+        runtimeCaching: [
+          {
+           urlPattern: ({ request }) => request.destination === "document",
+           handler: "NetworkFirst",
+           options: {
+             cacheName: "pages",
+           },
+          },
+        ],
       },
-    ],
-  },
-}),
-],
+    })
+  ],
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),
